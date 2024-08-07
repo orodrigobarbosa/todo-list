@@ -1,8 +1,10 @@
 package toDo_List_Application.to_do_list.domain.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import toDo_List_Application.to_do_list.domain.handler.HandlerIDNaoEncontrado;
 import toDo_List_Application.to_do_list.domain.model.ToDoList;
 import toDo_List_Application.to_do_list.domain.repository.ToDoRepository;
 
@@ -30,12 +32,13 @@ public class ToDoListService {
         return toDoRepository.findByStatus(status);
     }
 
+    @Transactional
     public ToDoList editarTarefa(Long id, ToDoList tarefa) {
         if (toDoRepository.existsById(id)) {
             tarefa.setId(id);
             return toDoRepository.save(tarefa);
         } else {
-            return null;
+            throw new HandlerIDNaoEncontrado("Tarefa com ID " + id + " não encontrada");
         }
     }
 
