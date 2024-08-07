@@ -25,11 +25,11 @@ public class ToDoListController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ToDoList buscarTarefa(@PathVariable Long id) {
+    public ToDoList buscarTarefaPorId(@PathVariable Long id) {
         return toDoListService.buscarPorId(id);
     }
 
-    @GetMapping("/buscar/{status}")
+    @GetMapping("/status/{status}")
     public List<ToDoList> listarPorStatus(@PathVariable String status) {
         return toDoListService.listarPorStatus(status);
     }
