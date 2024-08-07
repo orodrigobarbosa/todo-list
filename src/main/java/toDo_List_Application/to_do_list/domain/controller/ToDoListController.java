@@ -15,35 +15,32 @@ public class ToDoListController {
     private final ToDoListService toDoListService;
 
     @PostMapping
-    public ToDoList criar(@RequestBody ToDoList tarefa) {
+    public ToDoList criarTarefa(@RequestBody ToDoList tarefa) {
         return toDoListService.criarTarefa(tarefa);
     }
 
     @GetMapping
-    public List<ToDoList> listarTodos() {
+    List<ToDoList> listarTarefas() {
         return toDoListService.listarTarefas();
     }
 
-
-    @GetMapping("/{id}")
-    public ToDoList buscarPorId(@PathVariable Long id) {
+    @GetMapping("/buscar/{id}")
+    public ToDoList buscarTarefaPorId(@PathVariable Long id) {
         return toDoListService.buscarPorId(id);
     }
 
     @GetMapping("/status/{status}")
-    public List<ToDoList> buscarPorStatus(@PathVariable String status) {
+    public List<ToDoList> listarPorStatus(@PathVariable String status) {
         return toDoListService.listarPorStatus(status);
     }
 
-    @PutMapping("/{id}")
-    public ToDoList atualizar(@PathVariable Long id, @RequestBody ToDoList tarefa) {
+    @PutMapping
+    public ToDoList atualizarPorId(@RequestBody Long id, @RequestBody ToDoList tarefa){
         return toDoListService.editarTarefa(id, tarefa);
     }
 
     @DeleteMapping("/{id}")
-    public void remover(@PathVariable Long id) {
-        toDoListService.deletarTarefa(id);
+    public void excluirPorId(@PathVariable Long id){
+        toDoListService.removerTarefa(id);
     }
-
-
 }

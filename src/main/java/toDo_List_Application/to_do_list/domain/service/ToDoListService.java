@@ -40,7 +40,7 @@ public class ToDoListService {
     }
 
 
-    public void deletarTarefa(Long id) {
+    public void removerTarefa(Long id) {
         toDoRepository.deleteById(id);
     }
 
