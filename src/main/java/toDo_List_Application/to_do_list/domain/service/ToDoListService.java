@@ -1,10 +1,11 @@
 package toDo_List_Application.to_do_list.domain.service;
 
-import jakarta.persistence.EntityNotFoundException;
+
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import toDo_List_Application.to_do_list.domain.handler.HandlerIDNaoEncontrado;
+import toDo_List_Application.to_do_list.domain.handler.HandleIDNaoEncontrado;
+
 import toDo_List_Application.to_do_list.domain.model.ToDoList;
 import toDo_List_Application.to_do_list.domain.repository.ToDoRepository;
 
@@ -25,7 +26,7 @@ public class ToDoListService {
     }
 
     public ToDoList buscarPorId(Long id) {
-        return toDoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada"));
+        return toDoRepository.findById(id).orElseThrow(() -> new HandleIDNaoEncontrado("Tarefa não encontrada pelo ID digitado: " + id));
     }
 
     public List<ToDoList> listarPorStatus(String status) {
@@ -38,13 +39,18 @@ public class ToDoListService {
             tarefa.setId(id);
             return toDoRepository.save(tarefa);
         } else {
-            throw new HandlerIDNaoEncontrado("Tarefa com ID " + id + " não encontrada");
+            throw new HandleIDNaoEncontrado("Tarefa com ID " + id + " não encontrada");
         }
     }
 
 
+    @Transactional
     public void removerTarefa(Long id) {
-        toDoRepository.deleteById(id);
+        if (toDoRepository.existsById(id)) {
+            toDoRepository.deleteById(id);
+        } else {
+            throw new HandleIDNaoEncontrado("Tarefa com ID " + id + " não encontrada para ser deletada.");
+        }
     }
 
 
