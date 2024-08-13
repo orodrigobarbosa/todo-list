@@ -24,7 +24,7 @@ public class ToDoListController {
         return toDoListService.listarTarefas();
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/buscar/id/{id}")
     public ToDoList buscarTarefaPorId(@PathVariable Long id) {
         return toDoListService.buscarPorId(id);
     }
