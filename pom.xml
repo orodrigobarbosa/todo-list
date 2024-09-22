@@ -30,45 +30,103 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!--
+        org.springframework.boot:spring-boot-starter-data-jdbc
+        Essa dependência fornece suporte para trabalhar com JDBC (Java Database Connectivity) usando Spring Boot.
+        Ela permite que você interaja com bancos de dados relacionais diretamente via SQL e mapeie resultados para objetos Java.
+        -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 		</dependency>
+
+		<!--
+        org.springframework.boot:spring-boot-starter-data-jpa
+        Essa dependência traz suporte para JPA (Java Persistence API), que é uma API para gerenciar a persistência de dados.
+        Ela facilita o mapeamento de classes Java para tabelas no banco de dados, permitindo usar anotações como @Entity, @Table, etc.
+        Inclui o Hibernate como provedor de JPA por padrão.
+        -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
+		<!--
+        org.springframework.boot:spring-boot-starter-web
+        Fornece suporte para criar aplicações web, incluindo RESTful APIs.
+        Inclui o Spring MVC e um servidor embutido (como Tomcat), permitindo rodar a aplicação como um serviço web.
+        -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!--
+        com.mysql:mysql-connector-j
+        Esse conector permite que sua aplicação Java se conecte a um banco de dados MySQL.
+        Ele fornece as implementações JDBC necessárias para interagir com o MySQL.
+        -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!--
+        org.projectlombok:lombok
+        Lombok é uma biblioteca que gera código repetitivo como getters, setters, construtores, etc., usando anotações.
+        Por exemplo, @Getter, @Setter, @AllArgsConstructor, @NoArgsConstructor, @Builder, entre outros.
+        O campo <optional>true</optional> indica que essa dependência é opcional, não necessária em tempo de execução.
+        -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!--
+        org.springframework.boot:spring-boot-starter-test
+        Fornece tudo o que você precisa para testar sua aplicação Spring Boot, incluindo JUnit, Mockito, AssertJ, entre outros.
+        Essa dependência é usada para testes unitários, de integração, e traz utilitários para facilitar os testes com Spring.
+        -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--
+        org.hibernate.validator:hibernate-validator
+        Hibernate Validator é uma implementação da especificação de validação Bean Validation (JSR-303 e JSR-380).
+        É usada para validar objetos de forma declarativa em suas classes de modelo, como, por exemplo, @NotNull, @Size, @Email, etc.
+        -->
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
+
+		<!--
+        org.springdoc:springdoc-openapi-starter-webmvc-ui
+        Essa dependência fornece integração entre Spring Boot e OpenAPI (Swagger), permitindo gerar documentação para suas APIs automaticamente.
+        Isso inclui uma interface gráfica para visualizar e testar os endpoints da API no navegador, via Swagger UI.
+        A versão especificada é 2.1.0.
+        -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.1.0</version>
 		</dependency>
+		<!--
+		Fornece ferramentas de desenvolvimento, como recarregamento automático da aplicação ao detectar mudanças no código.
+		Isso facilita o processo de desenvolvimento, evitando que você tenha que reiniciar manualmente a aplicação após cada alteração. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 	</dependencies>
+
 
 	<build>
 		<plugins>

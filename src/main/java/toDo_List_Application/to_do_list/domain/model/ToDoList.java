@@ -1,11 +1,9 @@
 package toDo_List_Application.to_do_list.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import toDo_List_Application.to_do_list.domain.validator.StatusEnum;
 
 
 @Getter
@@ -18,5 +16,8 @@ public class ToDoList {
     private Long id;
     private String titulo;
     private String descricao;
-    private String status;
+
+
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 }
