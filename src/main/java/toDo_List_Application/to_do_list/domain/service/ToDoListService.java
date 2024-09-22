@@ -1,6 +1,5 @@
 package toDo_List_Application.to_do_list.domain.service;
 
-
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
