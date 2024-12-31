@@ -61,16 +61,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!--
-        com.mysql:mysql-connector-j
-        Esse conector permite que sua aplicação Java se conecte a um banco de dados MySQL.
-        Ele fornece as implementações JDBC necessárias para interagir com o MySQL.
-        -->
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 
 		<!--
         org.projectlombok:lombok
@@ -124,6 +114,13 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 
 	</dependencies>
 
