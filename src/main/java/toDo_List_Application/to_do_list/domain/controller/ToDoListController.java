@@ -1,9 +1,12 @@
 package toDo_List_Application.to_do_list.domain.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import toDo_List_Application.to_do_list.domain.model.ToDoList;
 import toDo_List_Application.to_do_list.domain.service.ToDoListService;
+import toDo_List_Application.to_do_list.domain.validator.StatusEnum;
 
 import java.util.List;
 
@@ -31,7 +34,12 @@ public class ToDoListController {
 
     @GetMapping("/status/{status}")
     public List<ToDoList> listarPorStatus(@PathVariable String status) {
-        return toDoListService.listarPorStatus(status);
+        try {
+            StatusEnum statusEnum = StatusEnum.valueOf(status.toUpperCase());
+            return toDoListService.listarPorStatus(statusEnum);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status inválido: " + status);
+        }
     }
 
     @PutMapping
