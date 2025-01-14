@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import toDo_List_Application.to_do_list.domain.handler.HandleIDNaoEncontrado;
 import toDo_List_Application.to_do_list.domain.model.ToDoList;
 import toDo_List_Application.to_do_list.domain.repository.ToDoRepository;
+import toDo_List_Application.to_do_list.domain.validator.StatusEnum;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ToDoListService {
         return toDoRepository.findById(id).orElseThrow(() -> new HandleIDNaoEncontrado("Tarefa não encontrada pelo ID digitado: " + id));
     }
 
-    public List<ToDoList> listarPorStatus(String status) {
+    public List<ToDoList> listarPorStatus(StatusEnum status) {
         return toDoRepository.findByStatus(status);
     }
 
