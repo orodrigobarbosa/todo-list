@@ -1,6 +1,7 @@
 package toDo_List_Application.to_do_list.domain.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,22 +26,17 @@ public class ToDoListController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTarefa);
     }
 
-
     @GetMapping
     public ResponseEntity<List<ToDoList>> listarTarefas(){
         List<ToDoList> tarefas = toDoListService.listarTarefas();
         return ResponseEntity.ok().body(tarefas);
     }
 
-
     @GetMapping("/buscar/id/{id}")
     public ResponseEntity<ToDoList> buscarTarefaPorId(@PathVariable Long id){
         ToDoList tarefa = toDoListService.buscarPorId(id);
         return ResponseEntity.ok().body(tarefa);
-
     }
-
-
 
     @GetMapping("/status/{status}")
     public ResponseEntity<List<ToDoList>> listarPorStatus(@PathVariable String status) {
@@ -58,13 +54,32 @@ public class ToDoListController {
         }
     }
 
-    @PutMapping
-    public ToDoList atualizarPorId(@RequestBody Long id, @RequestBody ToDoList tarefa){
-        return toDoListService.editarTarefa(id, tarefa);
+    @PutMapping("/{id}")
+    public ResponseEntity<ToDoList> atualizarTarefa(@PathVariable Long id, @RequestBody ToDoList tarefa){
+        ToDoList tarefaAtualizada = toDoListService.editarTarefa(id, tarefa);
+        return ResponseEntity.ok(tarefaAtualizada);
     }
 
     @DeleteMapping("/{id}")
-    public void excluirPorId(@PathVariable Long id){
+    public ResponseEntity<Void> excluirTarefa(@PathVariable Long id){
         toDoListService.removerTarefa(id);
+        return ResponseEntity.noContent().build();  // Retorna HTTP 204 No Content após a exclusão
+    }
+
+    // Endpoint para retornar tarefas paginadas utilizando ResponseEntity
+    @GetMapping("/pagina")
+    public ResponseEntity<Page<ToDoList>> listarTarefasPaginadas(
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanho) {
+
+        Page<ToDoList> tarefas = toDoListService.listarTarefasPaginadas(pagina, tamanho);
+
+        if (tarefas.isEmpty()) {
+            // Caso a página esteja vazia, retorna HTTP 204 (No Content)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            // Caso contrário, retorna as tarefas paginadas com HTTP 200 OK
+            return new ResponseEntity<>(tarefas, HttpStatus.OK);
+        }
     }
 }

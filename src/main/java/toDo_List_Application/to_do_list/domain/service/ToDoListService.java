@@ -2,6 +2,9 @@ package toDo_List_Application.to_do_list.domain.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -18,6 +21,7 @@ public class ToDoListService {
 
     private final ToDoRepository toDoRepository;
 
+    @Transactional
     public ToDoList criarTarefa(ToDoList tarefa) {
         return toDoRepository.save(tarefa);
     }
@@ -54,5 +58,11 @@ public class ToDoListService {
         }
     }
 
+
+    // Metodo para listar tarefas paginadas
+    public Page<ToDoList> listarTarefasPaginadas(int pagina, int tamanho) {
+        Pageable pageable = PageRequest.of(pagina, tamanho);  // Criação de Pageable
+        return toDoRepository.findAll(pageable);  // Retorna uma página de tarefas
+    }
 
 }
